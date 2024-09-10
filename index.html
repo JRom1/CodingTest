@@ -1,7 +1,7 @@
 <html>
 
-<tittle> you a bitch </tittle>
+<tittle> hello girly </tittle>
 
-<p> why? because you are </p>
+<p> am testing my code C: </p>
 
 </html>
