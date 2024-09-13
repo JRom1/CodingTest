@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Button with Message</title>
+    <title>Heart Explosion with Message</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,48 +37,32 @@
             z-index: 1;
         }
 
-        /* Hearts surrounding the button */
+        /* Hearts surrounding the button (Initially hidden) */
         .heart {
             position: absolute;
             font-size: 30px;
             color: #FF1493;
-            animation: float 4s infinite ease-in-out;
+            opacity: 0;
         }
 
-        .heart:nth-child(1) {
-            top: -30px;
-            left: -40px;
-            animation-delay: 0.2s;
+        /* Positioning of each heart around the button */
+        .heart:nth-child(2) { top: 0; left: 0; }
+        .heart:nth-child(3) { top: 0; right: 0; }
+        .heart:nth-child(4) { bottom: 0; left: 0; }
+        .heart:nth-child(5) { bottom: 0; right: 0; }
+
+        /* Heart explosion animation */
+        .shoot-out {
+            opacity: 1;
+            animation: explode 1s ease-out forwards;
         }
 
-        .heart:nth-child(2) {
-            top: -30px;
-            right: -40px;
-            animation-delay: 0.4s;
-        }
-
-        .heart:nth-child(3) {
-            bottom: -30px;
-            left: -40px;
-            animation-delay: 0.6s;
-        }
-
-        .heart:nth-child(4) {
-            bottom: -30px;
-            right: -40px;
-            animation-delay: 0.8s;
-        }
-
-        /* Animation for floating hearts */
-        @keyframes float {
+        @keyframes explode {
             0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
+                transform: scale(1) translate(0, 0);
             }
             100% {
-                transform: translateY(0);
+                transform: scale(2) translate(var(--x), var(--y));
             }
         }
 
@@ -100,22 +84,34 @@
         <button id="heartButton">Press Me</button>
 
         <!-- Hearts around the button -->
-        <div class="heart">❤️</div>
-        <div class="heart">❤️</div>
-        <div class="heart">❤️</div>
-        <div class="heart">❤️</div>
+        <div class="heart" style="--x: -150px; --y: -150px;">❤️</div>
+        <div class="heart" style="--x: 150px; --y: -150px;">❤️</div>
+        <div class="heart" style="--x: -150px; --y: 150px;">❤️</div>
+        <div class="heart" style="--x: 150px; --y: 150px;">❤️</div>
     </div>
 
     <!-- Message that appears after button is clicked -->
-    <div id="message">I want to butt fuck you till I cum inside!</div>
+    <div id="message">I want to breed the shit out of you.</div>
 
     <script>
-        // JavaScript to show message after button click
+        // JavaScript to handle heart shooting and message display
         const heartButton = document.getElementById('heartButton');
+        const hearts = document.querySelectorAll('.heart');
         const message = document.getElementById('message');
 
         heartButton.addEventListener('click', () => {
-            message.style.display = 'block'; // Show the message
+            // Make hearts "shoot out"
+            hearts.forEach(heart => {
+                heart.classList.add('shoot-out');
+            });
+
+            // Reveal the message after a delay (matching animation duration)
+            setTimeout(() => {
+                message.style.display = 'block'; // Show the message
+            }, 1000);
+
+            // Hide the button after pressing
+            heartButton.style.display = 'none';
         });
     </script>
 
